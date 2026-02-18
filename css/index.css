@@ -1,0 +1,83 @@
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FF;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Loader animation */
+        .loader {
+            border-top-color: #3498db;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Modal styles */
+        #ai-modal-backdrop {
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        #ai-modal-content {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #ai-modal-body {
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+
+        .hero-bg {
+            background-color: #EBF5FF;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pill-bg {
+            position: absolute;
+            opacity: 0.1;
+            filter: blur(2px);
+        }
+
+        .details-list {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        .filter-btn.active {
+            background-color: #3b82f6;
+            /* bg-blue-600 */
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .filter-btn.active i {
+            display: inline-block;
+        }
+
+        .filter-btn i {
+            display: none;
+            margin-right: 0.25rem;
+        }

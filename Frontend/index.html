@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medi-Tech</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+
+<body class="text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-30">
+        <nav class="container mx-auto px-4 md:px-8 flex justify-between items-center py-4">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-prescription-bottle-medical text-3xl text-blue-600"></i>
+                <span class="text-2xl font-bold text-gray-800">Medi-Tech</span>
+            </div>
+
+
+            <div>
+                <a href="./admin.html"
+                    class="text-blue-600 font-semibold hover:text-blue-700 transition duration-300">Admin Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <main>
+        <!-- Hero Section -->
+        <div class="hero-bg py-20 md:py-32">
+            <!-- Background Pill Shapes -->
+            <svg class="pill-bg -left-20 -top-20 w-96 h-96 text-blue-300" viewBox="0 0 200 200"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor"
+                    d="M47.3,-63.9C60.1,-55.2,68.4,-40.4,72.5,-24.4C76.6,-8.4,76.5,8.7,70.9,23.5C65.3,38.3,54.2,50.8,41.2,59.3C28.2,67.8,13.2,72.3,-2.4,74.1C-18,75.9,-36.1,75,-49.7,67.2C-63.3,59.4,-72.4,44.7,-76.3,29.1C-80.2,13.5,-78.9,-2.9,-73.2,-17.7C-67.5,-32.5,-57.4,-45.7,-45,-54.9C-32.6,-64.1,-18,-69.3,-2.3,-68.2C13.3,-67.2,26.7,-60.3,36.4,-51.7"
+                    transform="translate(100 100) rotate(30)"></path>
+            </svg>
+            <svg class="pill-bg -right-20 -bottom-20 w-96 h-96 text-blue-300" viewBox="0 0 200 200"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor"
+                    d="M47.3,-63.9C60.1,-55.2,68.4,-40.4,72.5,-24.4C76.6,-8.4,76.5,8.7,70.9,23.5C65.3,38.3,54.2,50.8,41.2,59.3C28.2,67.8,13.2,72.3,-2.4,74.1C-18,75.9,-36.1,75,-49.7,67.2C-63.3,59.4,-72.4,44.7,-76.3,29.1C-80.2,13.5,-78.9,-2.9,-73.2,-17.7C-67.5,-32.5,-57.4,-45.7,-45,-54.9C-32.6,-64.1,-18,-69.3,-2.3,-68.2C13.3,-67.2,26.7,-60.3,36.4,-51.7"
+                    transform="translate(100 100) rotate(-60)"></path>
+            </svg>
+
+            <div class="container mx-auto px-4 md:px-8 text-center relative z-10">
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-800">Find Your Medicines Instantly </h1>
+                <p class="text-gray-600 mt-4 text-lg">Search for medicines, check availability in nearby pharmacies, or
+                    scan your prescription to get started. </p>
+
+                <!-- Search Section -->
+                <div class="bg-white p-2 rounded-full shadow-xl max-w-2xl mx-auto mt-10 flex items-center gap-2">
+                    <div class="relative flex-grow">
+                        <input type="text" id="medicine-search" placeholder="Search for medicines or scan prescription"
+                            class="w-full pl-6 pr-12 py-3 rounded-full focus:outline-none">
+                        <button id="search-btn"
+                            class="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-600 text-white w-10 h-10 rounded-full hover:bg-blue-700 transition duration-300 flex items-center justify-center">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <button id="ocr-btn"
+                        class="bg-gray-200 text-gray-600 w-12 h-10 rounded-full hover:bg-gray-300 transition duration-300 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                    <input type="file" id="ocr-input" class="hidden" accept="image/*">
+                </div>
+                <div id="status-message" class="text-center mt-4 text-sm text-gray-500"></div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section class="container mx-auto px-4 md:px-8 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div
+                    class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition duration-300">
+                    <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 text-blue-600">
+                        <i class="fas fa-map-marker-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Locate Instantly</h3>
+                    <p class="text-gray-600 leading-relaxed">Find the nearest pharmacy with the stock you need, right
+                        now.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div
+                    class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition duration-300">
+                    <div
+                        class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mb-6 text-purple-600">
+                        <i class="fas fa-tag text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Best Prices</h3>
+                    <p class="text-gray-600 leading-relaxed">Compare prices across multiple stores to get the best deal.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div
+                    class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition duration-300">
+                    <div
+                        class="w-14 h-14 bg-indigo-100 rounded-2xl flex items-center justify-center mb-6 text-indigo-600">
+                        <i class="fas fa-file-prescription text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Smart Scan</h3>
+                    <p class="text-gray-600 leading-relaxed">Upload your prescription and let our AI do the searching
+                        for you.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- This section is no longer used, results are on results.html -->
+        <div id="results-section" class="container mx-auto px-4 md:px-8 py-12 hidden">
+            <!-- Filter and Sort Section -->
+            <div id="filter-sort-container" class="mb-6 hidden">
+                <div class="flex flex-wrap gap-x-6 gap-y-2 items-center">
+                    <div class="flex items-center gap-2">
+                        <label for="sort-select" class="font-semibold text-gray-700 text-sm">Sort By:</label>
+                        <select id="sort-select"
+                            class="bg-white border border-gray-300 rounded-full px-4 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="distance">Distance</option>
+                            <option value="price">Price (Low to High)</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <span class="font-semibold text-gray-700 text-sm">Filters:</span>
+                        <button id="filter-stock-btn"
+                            class="filter-btn bg-white border border-gray-300 rounded-full px-4 py-2 text-sm font-medium text-gray-700 focus:outline-none transition duration-150">
+                            <i class="fas fa-check"></i>In Stock Only
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Info Button -->
+            <div id="global-info-container" class="text-center mb-8 hidden">
+                <button id="global-info-btn"
+                    class="bg-gray-200 text-gray-800 font-semibold px-6 py-3 rounded-lg hover:bg-gray-300 transition duration-300 shadow-sm">
+                    ✨ Get Info on <span id="info-med-name" class="font-bold"></span>
+                </button>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div id="loader" class="hidden text-center py-10">
+                <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-24 w-24 mx-auto">
+                </div>
+                <p class="mt-4 text-lg font-medium text-gray-600">Finding pharmacies near you...</p>
+            </div>
+            <!-- No Results Message (now used for initial state) -->
+            <div id="no-results" class="hidden text-center py-10">
+                <i class="fas fa-map-marked-alt text-5xl text-gray-400 mb-4"></i>
+                <h3 class="text-2xl font-semibold text-gray-700">Find Your Medicine</h3>
+                <p class="text-gray-500 mt-2">Enter a medicine name above to see availability at all nearby shops.</p>
+            </div>
+            <!-- Results List -->
+            <div id="pharmacy-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Pharmacy cards will be injected here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- AI Modal (no longer used on this page) -->
+    <div id="ai-modal-backdrop"
+        class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden justify-center items-center p-4">
+        <div id="ai-modal-content"
+            class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 relative transform scale-95">
+            <button id="ai-modal-close-btn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition">
+                <i class="fas fa-times fa-lg"></i>
+            </button>
+            <h3 id="ai-modal-title" class="text-2xl font-bold text-gray-800 mb-4">AI Assistant</h3>
+            <div id="ai-modal-loader" class="text-center py-8 hidden">
+                <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mx-auto">
+                </div>
+                <p class="mt-3 text-gray-600">✨ Thinking...</p>
+            </div>
+            <div id="ai-modal-body" class="text-gray-600 space-y-3 prose max-w-none">
+                <!-- AI generated content goes here -->
+            </div>
+            <p class="mt-6 text-xs text-gray-400 italic text-center">Disclaimer: AI-generated information is for
+                informational purposes only and is not a substitute for professional medical advice. Always consult a
+                doctor or pharmacist.</p>
+        </div>
+    </div>
+
+
+
+    <!-- Firebase SDK -->
+    <script type="module" src="../js/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medi-Tech Payment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/payment.css">
+</head>
+
+<body class="text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-30">
+        <nav class="container mx-auto px-4 md:px-8 flex justify-between items-center py-4">
+            <div class="flex items-center gap-2">
+                <a href="./index.html" class="flex items-center gap-2">
+                    <i class="fas fa-prescription-bottle-medical text-3xl text-blue-600"></i>
+                    <span class="text-2xl font-bold text-gray-800">Medi-Tech</span>
+                </a>
+            </div>
+            <div>
+                <a href="./index.html" class="text-gray-600 hover:text-blue-600 font-medium">Home</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container mx-auto px-4 md:px-8 py-12">
+        <div class="bg-white p-8 rounded-2xl shadow-xl max-w-lg mx-auto">
+
+            <!-- Success Message (Hidden by default) -->
+            <!-- Success Message (Hidden by default) -->
+            <div id="success-message" class="hidden flex flex-col items-center mb-8 animate-fade-in">
+                <div class="bg-green-100 w-full p-8 rounded-3xl text-center">
+                    <div
+                        class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg text-white">
+                        <i class="fas fa-check text-3xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-green-800 mb-2">Payment Successful!</h2>
+                    <p id="success-details" class="text-gray-600 mb-2 leading-relaxed"></p>
+                    <!-- Badge will be injected here by JS -->
+                </div>
+                <a href="./index.html"
+                    class="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-blue-700 transition duration-300 shadow-md">
+                    Go to Home
+                </a>
+            </div>
+
+            <!-- Payment Form Structure -->
+
+            <!-- Payment Form (Visible by default) -->
+
+
+            <div class="container mx-auto px-4 py-8 max-w-lg">
+
+
+                <div id="order-summary" class="bg-white p-6 rounded-2xl shadow-sm mb-6 border border-gray-100">
+                    <!-- Summary Details -->
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-900">Payment Method</h3>
+
+                    <!-- Payment Tabs -->
+                    <div class="flex mb-6 border-b border-gray-200">
+                        <button id="card-tab-btn"
+                            class="payment-tab-btn active flex-1 py-3 text-sm font-medium text-center focus:outline-none transition-colors duration-200">
+                            <i class="fas fa-credit-card mr-2"></i>Card
+                        </button>
+                        <button id="upi-tab-btn"
+                            class="payment-tab-btn flex-1 py-3 text-sm font-medium text-center focus:outline-none transition-colors duration-200">
+                            <i class="fas fa-mobile-alt mr-2"></i>UPI
+                        </button>
+                        <button id="cod-tab-btn"
+                            class="payment-tab-btn flex-1 py-3 text-sm font-medium text-center focus:outline-none transition-colors duration-200">
+                            <i class="fas fa-money-bill-wave mr-2"></i>COD
+                        </button>
+                    </div>
+
+                    <!-- Payment Forms -->
+                    <form id="payment-form" class="space-y-4">
+                        <!-- Card Form -->
+                        <div id="card-payment-tab" class="space-y-4">
+                            <div class="relative">
+                                <i
+                                    class="fas fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                                <input type="text" placeholder="Cardholder Name"
+                                    class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                                    required>
+                            </div>
+                            <div class="relative">
+                                <i
+                                    class="fas fa-credit-card absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                                <input type="text" placeholder="Card Number"
+                                    class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                                    required>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="relative flex-1">
+                                    <i
+                                        class="fas fa-calendar absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                                    <input type="text" placeholder="MM/YY"
+                                        class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                                        required>
+                                </div>
+                                <div class="relative flex-1">
+                                    <i
+                                        class="fas fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                                    <input type="text" placeholder="CVV"
+                                        class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- UPI Form -->
+                        <div id="upi-payment-tab" class="hidden space-y-4">
+                            <div class="relative">
+                                <i
+                                    class="fas fa-at absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                                <input type="text" placeholder="Enter UPI ID (e.g., user@upi)"
+                                    class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition">
+                            </div>
+                            <p class="text-xs text-gray-500 text-center">Open your UPI app to approve the request.
+                            </p>
+                        </div>
+
+                        <!-- COD Form -->
+                        <div id="cod-payment-tab" class="hidden space-y-4 text-center">
+                            <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                                <p class="text-sm text-gray-600">You can pay via Cash or UPI upon delivery.</p>
+                            </div>
+                        </div>
+
+                        <button id="pay-btn" type="submit"
+                            class="w-full bg-blue-600 text-white font-bold py-3.5 rounded-xl hover:bg-blue-700 transition duration-300 shadow-lg mt-6">
+                            Pay Now
+                        </button>
+                    </form>
+
+
+                </div>
+            </div>
+
+            <script src="../js/payment.js"></script>
+
+</body>
+
+</html>

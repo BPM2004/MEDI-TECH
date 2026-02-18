@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Libraries for file processing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Auth Layer -->
+    <div id="auth-layer" class="hidden">
+        <!-- Header -->
+        <header class="bg-white shadow-md">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800">Pharmacy Admin Dashboard</h1>
+                    <p class="text-gray-500">Manage your store's inventory in real-time. Welcome, <span id="user-email"
+                            class="font-semibold"></span>!</p>
+                </div>
+                <div class="flex flex-col items-end gap-2">
+                    <button id="show-add-pharmacy-btn"
+                        class="text-blue-600 hover:text-blue-800 text-sm font-semibold hidden">
+                        <i class="fas fa-plus mr-1"></i> Add New Shop
+                    </button>
+                    <button id="sign-out-btn"
+                        class="bg-gray-200 text-gray-800 font-semibold px-4 py-2 rounded-lg hover:bg-gray-300">Sign
+                        Out</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-6 py-8">
+
+            <!-- Onboarding message for new users -->
+            <div id="welcome-onboarding"
+                class="hidden bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-6 rounded-lg shadow-md mb-8">
+                <h2 class="text-2xl font-bold mb-2">Welcome!</h2>
+                <p>To get started with managing your inventory, you first need to add your pharmacy details. Please use
+                    the "Add New Pharmacy" form below to register your store.</p>
+            </div>
+
+            <!-- Add New Pharmacy Form -->
+            <div id="add-pharmacy-section" class="bg-white p-6 rounded-lg shadow-md mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Add New Pharmacy</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="text" id="new-pharmacy-name" placeholder="Pharmacy Name"
+                        class="p-3 border border-gray-300 rounded-lg md:col-span-2">
+                    <input type="text" id="new-pharmacy-address" placeholder="Street Address"
+                        class="p-3 border border-gray-300 rounded-lg md:col-span-2">
+                    <input type="text" id="new-pharmacy-city" placeholder="City"
+                        class="p-3 border border-gray-300 rounded-lg">
+                    <input type="text" id="new-pharmacy-pincode" placeholder="Pincode"
+                        class="p-3 border border-gray-300 rounded-lg">
+                    <div class="md:col-span-2">
+                        <button id="get-location-btn"
+                            class="mt-2 bg-gray-200 text-gray-800 font-semibold px-6 py-3 rounded-lg hover:bg-gray-300 transition duration-300 w-full flex items-center justify-center gap-2">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Use My Current Location</span>
+                        </button>
+                    </div>
+                </div>
+                <button id="add-pharmacy-btn"
+                    class="mt-4 bg-purple-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-purple-700 transition duration-300 w-full flex items-center justify-center gap-2">
+                    <i class="fas fa-store"></i>
+                    <span id="add-pharmacy-btn-text">Add Pharmacy</span>
+                </button>
+                <p id="add-pharmacy-status" class="text-center mt-2 text-sm"></p>
+            </div>
+
+            <!-- Pharmacy Selection & Inventory Management -->
+            <div id="manage-inventory-section" class="bg-white p-6 rounded-lg shadow-md mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Manage Existing Inventory</h2>
+                <label for="pharmacy-select" class="block text-lg font-medium text-gray-700 mb-2">Select a
+                    Pharmacy</label>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <select id="pharmacy-select"
+                        class="block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">-- Loading Your Pharmacies --</option>
+                    </select>
+                    <div class="flex gap-2">
+                        <button id="load-inventory-btn"
+                            class="bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300 whitespace-nowrap">Load
+                            Inventory</button>
+                        <button id="remove-pharmacy-btn"
+                            class="bg-red-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-red-700 transition duration-300 whitespace-nowrap disabled:bg-red-300 disabled:cursor-not-allowed"
+                            disabled>Remove Pharmacy</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="admin-content" class="hidden">
+                <!-- Bulk Update from File -->
+                <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Bulk Update from File</h2>
+                    <p class="text-gray-600 mb-4 text-sm">Upload a file (PDF, Excel, JPG, PNG) with medicine data. Excel
+                        should have 'Name' in column A and 'Price' in column B and 'Stocks' in coloum C .</p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <input type="file" id="file-upload" accept=".pdf,.xls,.xlsx,.jpg,.jpeg,.png"
+                            class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border rounded-lg p-2">
+                        <button id="process-file-btn"
+                            class="bg-teal-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-teal-700 transition duration-300 whitespace-nowrap">
+                            <i class="fas fa-file-upload"></i> Process File
+                        </button>
+                    </div>
+                    <p id="file-status" class="text-center mt-3 text-sm"></p>
+                </div>
+
+                <!-- Add New Medicine Form -->
+                <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Add New Medicine (Single)</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <input type="text" id="new-med-name" placeholder="Medicine Name"
+                            class="p-3 border border-gray-300 rounded-lg col-span-1 md:col-span-2">
+                        <input type="number" id="new-med-stock" placeholder="Stock"
+                            class="p-3 border border-gray-300 rounded-lg">
+                        <input type="number" id="new-med-price" placeholder="Price"
+                            class="p-3 border border-gray-300 rounded-lg">
+                    </div>
+                    <button id="add-med-btn"
+                        class="mt-4 bg-green-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-700 transition duration-300 w-full">
+                        <i class="fas fa-plus-circle"></i> Add Medicine
+                    </button>
+                    <p id="add-status" class="text-center mt-2 text-sm"></p>
+                </div>
+
+                <!-- Inventory List -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 flex justify-between items-center">
+                        <span>Current Inventory</span>
+                        <div id="inventory-loader"
+                            class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-6 w-6 hidden">
+                        </div>
+                    </h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="bg-gray-50 border-b">
+                                    <th class="p-4 font-semibold">Medicine Name</th>
+                                    <th class="p-4 font-semibold">Current Stock</th>
+                                    <th class="p-4 font-semibold">Current Price (₹)</th>
+                                    <th class="p-4 font-semibold text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventory-table-body">
+                                <!-- Rows will be injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="confirmation-modal"
+        class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden justify-center items-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-md p-6">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Are you sure?</h3>
+            <p id="confirmation-message" class="text-gray-600 mb-6">This action cannot be undone.</p>
+            <div class="flex justify-end gap-4">
+                <button id="cancel-btn"
+                    class="bg-gray-200 text-gray-800 font-semibold px-6 py-2 rounded-lg hover:bg-gray-300">Cancel</button>
+                <button id="confirm-btn"
+                    class="bg-red-600 text-white font-semibold px-6 py-2 rounded-lg hover:bg-red-700">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="../js/admin.js"></script>
+</body>
+
+</html>

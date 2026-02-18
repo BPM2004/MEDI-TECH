@@ -160,7 +160,7 @@ async function callGeminiWithImage(base64ImageData, mimeType) { // <-- 1. Accept
     statusMessage.textContent = 'Reading prescription...';
     // NOTE: The user's hardcoded API key is removed as it's not needed
     // for the gemini-2.0-flash model in this environment.
-    const apiKey = "AIzaSyAIRO0BN7cRN71IGiUIPPphwm5LElqAOpI"; // API key is handled by the environment
+    const apiKey = "YOUR API KEY"; // API key is handled by the environment
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
     const payload = {
